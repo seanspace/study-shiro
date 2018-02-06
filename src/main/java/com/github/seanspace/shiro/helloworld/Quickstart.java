@@ -1,4 +1,4 @@
-package com.github.seanspace.helloworld;
+package com.github.seanspace.shiro.helloworld;
 
 
 import org.apache.shiro.SecurityUtils;
