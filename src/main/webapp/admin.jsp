@@ -8,7 +8,7 @@
 </head>
 <body>
 	
-	<h4>User Page</h4>
+	<h4>Admin Page</h4>
 	
 </body>
 </html>
