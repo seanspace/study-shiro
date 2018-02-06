@@ -31,17 +31,20 @@ public class MyAuthenticatingRealm extends AuthenticatingRealm {
         if ("monster".equals((username))) {
             throw new LockedAccountException("用户被锁定");
         }
-        //6. 根据用户情况，来构建AuthenticationInfo对象
+        //6. 根据用户情况，来构建AuthenticationInfo对象并返回。通常使用的实现类为SimpleAuthenticationInfo
 
-        //1).认证的实体信息，可以是username也可以是数据表对应的用户实体
+        //1).principal认证的实体信息，可以是username也可以是数据表对应的用户实体。
         Object principal = username;
-        //2）.密码.返回正确密码，密码比对有shiro完成，并且下次比对可能直接在缓存比较
+        //2）.密码.从数据库表中返回的正确密码，密码比对有shiro完成，并且下次比对可能直接在缓存比较
         Object credentials = "123456";
         //3.). realmName :当前realm对象的name，调用父类的getName（）方法即可
         String realmName = getName();
+        // 不带盐值的实现
         //SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(principal, credentials, realmName);
         // 盐值
         ByteSource credentialsSalt = ByteSource.Util.bytes(username);
+
+        //密码是由父realm的属性CredentialsMatcher  进行比较的
 
         SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(principal, credentials,credentialsSalt, realmName);
         return info;

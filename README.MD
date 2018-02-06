@@ -28,6 +28,12 @@ if (currentUser.isPermitted("winnebago:drive:eagle5"))
 ```
 
 
+### Filter
+1. 认证过滤器
+需要认证通过才可访问。athc anno user等
+2. 授权过滤器
+需要有对应的权限，才可访问。perms  roles等
+
 ### 原来
 
 1. 授权需要继承 AuthorizingRealm 类, 并实现其 doGetAuthorizationInfo 方法

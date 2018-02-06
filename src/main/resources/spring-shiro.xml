@@ -48,13 +48,14 @@
         <!--<property name="shared" value="true"></property>-->
     <!--</bean>-->
 
-    <!--多realm-->
+    <!--多realm 及其策略-->
     <bean id="authenticator"
           class="org.apache.shiro.authc.pam.ModularRealmAuthenticator">
         <property name="authenticationStrategy">
             <!--默认的认证策略-->
             <bean class="org.apache.shiro.authc.pam.AtLeastOneSuccessfulStrategy"></bean>
         </property>
+        <!--relean可以写这，也可以直接写到securityManager（更好，因为最后还是要赋值给securityManager）-->
         <!--<property name="realms">-->
             <!--<list>-->
                 <!--<ref bean="jdbcRealm"/>-->
@@ -70,7 +71,7 @@
     	3. 配置 Realm
     	3.1 直接配置实现了 org.apache.shiro.realm.Realm 接口的 bean
     -->
-    <bean id="jdbcRealm" class="com.bin.std.shiro.realm.MyAuthenticatingRealm">
+    <bean id="jdbcRealm" class="com.github.seanspace.shiro.realm.MyAuthenticatingRealm">
         <property name="credentialsMatcher">
             <bean class="org.apache.shiro.authc.credential.HashedCredentialsMatcher">
                 <property name="hashAlgorithmName" value="MD5"></property>
@@ -81,7 +82,7 @@
     </bean>
 
     <!--多个realm-->
-    <bean id="secondRealm" class="com.bin.std.shiro.realm.SecendAuthenticatingRealm">
+    <bean id="secondRealm" class="com.github.seanspace.shiro.realm.SecendAuthenticatingRealm">
         <property name="credentialsMatcher">
             <bean class="org.apache.shiro.authc.credential.HashedCredentialsMatcher">
                 <property name="hashAlgorithmName" value="SHA1"></property>
@@ -137,7 +138,7 @@
         	以及访问这些页面需要的权限.
         	1). anon 可以被匿名访问
         	2). authc 必须认证(即登录)后才可能访问的页面.
-        	3). logout 登出.
+        	3). logout 登出.  不需要配置controller
         	4). roles 角色过滤器
         -->
         <property name="filterChainDefinitions">
